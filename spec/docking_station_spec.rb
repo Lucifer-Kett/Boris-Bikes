@@ -46,10 +46,10 @@ describe DockingStation do
     expect(docking_station.bikes.last.working).to eq(false)
   end
 
-   it 'does not release broken b doikes'
-    bike = Bik
-    bike.working = false
-    expect(docking_station.release(bike)).to eq(nil)
+   it 'does not release broken bikes' do
+    bike = Bike.new
+    docking_station.dock(bike, false)
+    expect(docking_station.release_bike).to eq(nil)
    end
 
 end

@@ -10,7 +10,7 @@ class DockingStation
   def release_bike
     if raise "No bikes found" 
     else
-      @bikes.each { |bike| if bike.working = true puts bike }
+      @bikes.each { |bike| puts bike if bike.working = true }
     end
   end
 
