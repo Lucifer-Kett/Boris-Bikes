@@ -1,23 +1,55 @@
-require './lib/docking_station.rb'
+require 'docking_station'
+require 'bike'
 
 describe DockingStation do
+  docking_station = DockingStation.new
   it "can release a bike" do
-
-    # docking_station = DockingStation.new
-    # docking_station.release_bike
-    expect(docking_station.release_bike).respond_to(release_bike)
-    # expect(docking_station.release_bike).to eq(respond_to)
-    docking_station.respond_to?(release_bike)
+    expect(docking_station).to respond_to(:release_bike)
   end
 
+  it 'shows bikes' do
+    expect(docking_station.bikes).to eq([])
+  end
 
-# describe Good_Bike do
-#   it 'is a good quality bike' do
-    
-#     good_bike = Good_Bike.new
+  it 'raises an error when no bikes' do
+    expect {docking_station.release_bike}.to raise_error("No bikes found")
+  end
+  
+  it 'docks bike' do
+    bike = Bike.new
+    expect(docking_station.dock(bike)).to eq([bike])
+  end
 
-#     good_bike.status
+  it 'raises an error when station is full' do
+    bike = Bike.new
+    expect {docking_station.capacity.times {docking_station.dock(Bike.new)}}.to raise_error("Station at capacity")
+  end
 
-#     expect(good_bike.status).to eq(good)
-#   end
+  it 'returns 20 when no capacity argument is set' do
+    expect(docking_station.capacity).to eq(20)
+  end
+
+  it 'returns argument when capacity is set' do
+    docking_station = DockingStation.new(25)
+    expect(docking_station.capacity).to eq(25)
+  end
+
+  it 'returns that bike is broken' do
+    bike = Bike.new
+    bike.working = false
+    expect(bike.working).to eq(false)
+  end
+
+  it 'takes user input about bike' do
+    bike = Bike.new
+    docking_station.dock(bike, false)
+    expect(docking_station.bikes.last.working).to eq(false)
+  end
+
+   it 'does not release broken b doikes'
+    bike = Bik
+    bike.working = false
+    expect(docking_station.release(bike)).to eq(nil)
+   end
+
 end
